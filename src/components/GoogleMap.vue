@@ -3,10 +3,8 @@
     <div>
      
       <label>
-        <gmap-autocomplete
-          @place_changed="setPlace">
-        </gmap-autocomplete>
-        <button @click="addMarker">Add</button>
+       
+        
       </label>
       <br/>
 
@@ -15,7 +13,7 @@
     <gmap-map
       :center="center"
       :zoom="12"
-      style="width:80%;  height: 400px; margin-left:10%"
+      style="width:80%;  height: 500px; margin-left:10%"
     >
       <gmap-marker
         :key="index"
@@ -24,6 +22,7 @@
         @click="center=m.position"
       ></gmap-marker>
     </gmap-map>
+     <v-btn style="margin-top:40px;color:black;margin-left:45%" v-on:click="addMarker" color="success">แสดง</v-btn>
   </div>
 </template>
 
