@@ -20,7 +20,7 @@
                     <a class="button is-rounded blue lighten-3 wave-light wave-effect" v-on:click="login">login</a>
                 </div>
             </div>
-            <div class="col m3">
+            <div class="col s2 m2 l3">
 
             </div>
         </div>
