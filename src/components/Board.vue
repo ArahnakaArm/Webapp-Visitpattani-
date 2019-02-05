@@ -22,8 +22,8 @@
   <h5 style="margin:0px">เลือกวัน</h5>
   <h1 style="margin:0px"><b-form-select v-model="selected" :options="options" class="mb-3" /></h1>
   </div>
-<v-btn style="margin-top:40px;color:black" v-on:click="calculate" color="success">ค้นหา</v-btn>
-
+<v-btn style="margin-top:40px;color:black" v-on:click="calculate" color="success">แสดง</v-btn>
+<v-btn style="margin-top:40px;color:black" v-on:click="calculate2" color="success">แสดงทั้งหมด</v-btn>
 </div>
 
       </div>
@@ -49,7 +49,7 @@
                 <td>
                  <a v-bind:href="book.url">{{book.name}}</a>
                 </td>
-                <td>
+                <td style="padding-left:27px">
                 {{book.rate}}
                 </td>
               </tr>
@@ -70,7 +70,16 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import {db} from '../firebase'
 //s
-
+let rateRef = db.ref('Places');
+let bookReff=db.ref('books');
+var childCount;
+var childValue=0;
+var childRate=0;
+var sumRate=0;
+var childNum=0;
+var childAverage=0;
+var placeName;
+var DateStamp='Test';
 var day='5';
 let booksRef = db.ref('books').child('null');
 
@@ -135,7 +144,7 @@ export default {
     selected2: null,
       options2: [
         { value: null, text: 'Year' },
-        { value: '2018', text: '2018' },
+        
         { value: '2019', text: '2019' },
         { value: '2020', text: '2020' },
         { value: '2021', text: '2021' },
@@ -151,11 +160,97 @@ export default {
     }
   },methods:{
     calculate(){
+
+        rateRef.once("value",function(snapshot){
+        
+          snapshot.forEach(function(childs){
+            let   booksReff=db.ref('books');
+            childs.forEach(function(childss){
+                  childCount= childss.numChildren();
+                  sumRate=sumRate+childss.val().Rate;
+                  DateStamp=childss.val().Date;
+                 
+                  
+            })
+         
+            console.log(sumRate);
+            childNum= childs.numChildren();
+            childAverage=sumRate/childNum;
+            console.log(childNum);
+             placeName=childs.key;
+            console.log(placeName);
+           booksReff.child(placeName).set({
+             name:placeName,
+             rate:childAverage,
+             timestamp:DateStamp
+        
+           })
+           console.log(DateStamp);
+           //booksReff.push('sad');
+            console.log(childAverage);
+            // rateRef.push(childAverage);
+            sumRate=0;
+             childAverage=0;
+           
+          })
+       
+        })
+
+
        day=this.selected+this.selected1+this.selected2
        //booksRef.push({name:'testt',rate:'7'})
       console.log(day)
       this.$unbind('books')
       this.$bindAsArray('books',db.ref('books').orderByChild('timestamp').equalTo(day))
+      booksRef.orderByChild('day').equalTo(day).on('child_added',snapshot=>{
+        console.log(snapshot.val())
+        
+      })
+     
+    }, calculate2(){
+        
+        rateRef.once("value",function(snapshot){
+        
+          snapshot.forEach(function(childs){
+            let   booksReff=db.ref('books');
+            childs.forEach(function(childss){
+                  childCount= childss.numChildren();
+                  sumRate=sumRate+childss.val().Rate;
+                  DateStamp=childss.val().Date;
+                 
+                  
+            })
+         
+            console.log(sumRate);
+            childNum= childs.numChildren();
+            childAverage=sumRate/childNum;
+            console.log(childNum);
+             placeName=childs.key;
+            console.log(placeName);
+           booksReff.child(placeName).set({
+             name:placeName,
+             rate:childAverage,
+             timestamp:DateStamp
+        
+           })
+           console.log(DateStamp);
+           //booksReff.push('sad');
+            console.log(childAverage);
+            // rateRef.push(childAverage);
+            sumRate=0;
+             childAverage=0;
+           
+          })
+       
+        })
+
+
+
+       day=this.selected+this.selected1+this.selected2
+       //booksRef.push({name:'testt',rate:'7'})
+      console.log(day)
+      this.$unbind('books')
+      this.$bindAsArray('books',db.ref('books'))
       booksRef.orderByChild('day').equalTo(day).on('child_added',snapshot=>{
         console.log(snapshot.val())
         

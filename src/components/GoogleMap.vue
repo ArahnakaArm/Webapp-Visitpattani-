@@ -36,6 +36,16 @@
 import firebase from 'firebase'
 import {db} from '../firebase'
 let booksRef = db.ref('Location');
+let rateRef = db.ref('Places');
+let bookReff=db.ref('books');
+var childCount;
+var childValue=0;
+var childRate=0;
+var sumRate=0;
+var childNum=0;
+var childAverage=0;
+var placeName;
+var DateStamp='Test';
 export default {
   name: "GoogleMap",
   firebase: {
@@ -175,7 +185,9 @@ export default {
    }
   
     }
-    },
+    }
+    
+,
     addMarker2() {
       var CountTest =firebase.database().ref('Places');
        
@@ -194,6 +206,47 @@ export default {
       //  console.log(count);
    });
   
+    },
+
+
+    calculate(){
+        
+
+        rateRef.once("value",function(snapshot){
+        
+          snapshot.forEach(function(childs){
+            let   booksReff=db.ref('books');
+            childs.forEach(function(childss){
+                  childCount= childss.numChildren();
+                  sumRate=sumRate+childss.val().Rate;
+                  DateStamp=childss.val().Date;
+                 
+                  
+            })
+         
+            console.log(sumRate);
+            childNum= childs.numChildren();
+            childAverage=sumRate/childNum;
+            console.log(childNum);
+             placeName=childs.key;
+            console.log(placeName);
+           booksReff.child(placeName).set({
+             name:placeName,
+             rate:childAverage,
+             timestamp:DateStamp
+        
+           })
+           console.log(DateStamp);
+           //booksReff.push('sad');
+            console.log(childAverage);
+            // rateRef.push(childAverage);
+            sumRate=0;
+             childAverage=0;
+           
+          })
+       
+        })
+        
     },
     geolocate: function() {
       navigator.geolocation.getCurrentPosition(position => {
