@@ -1,21 +1,21 @@
 <template>
   <div>
  
-        <div style="margin-top:50px;margin-left:300px" class="row">
+        <div style="margin-top:50px;margin-left:500px" class="row">
         
 
 <div class="col-sm1"> 
-  <h6 style="margin-top:26px">กรุณาเลือก Options</h6>
+  <h6 style="margin-top:10px">กรุณาเลือก Options</h6>
 
   </div>
 <div class="col-sm1"> 
   <h1 style="margin:0px;margin-left:20px"><b-form-select  v-model="selected" :options="options" class="mb-2" /></h1>
   </div>
-  <v-btn style="margin-top:17px;color:black;margin-left:20px" v-on:click="addMarker" color="success">ค้นหา</v-btn>
+  <v-btn style="margin-top:0px;color:black;margin-left:20px" v-on:click="addMarker" color="success">ค้นหา</v-btn>
 
 </div>
 
-      <div style="margin-left:15%;margin-top:0px">
+      <div style="margin-left:15%;margin-top:30px">
     <gmap-map
       :center="center"
       :zoom="12"

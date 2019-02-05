@@ -6,12 +6,12 @@
     <div class = "page-header">
       
       <div>
-        <h2>ผลการเก็บข้อมูลจากการ Check In </h2>
+        <h2 style="font-size:40px">ผลการเก็บข้อมูลจากการ Check In </h2>
         
       <div style="margin-top:50px" class="row">
         
 <div  class="col-sm-2">
-  <h5 style="margin:0px">เลือกปี</h5>
+  <h2 style="margin:0px">เลือกปี</h2>
   <h1 style="margin:0px"><b-form-select  v-model="selected2" :options="options2" class="mb-3"  /></h1>
   </div>
 <div class="col-sm-2"> 
@@ -22,8 +22,8 @@
   <h5 style="margin:0px">เลือกวัน</h5>
   <h1 style="margin:0px"><b-form-select v-model="selected" :options="options" class="mb-3" /></h1>
   </div>
-<v-btn style="margin-top:40px;color:black" v-on:click="calculate" color="success">แสดง</v-btn>
-<v-btn style="margin-top:40px;color:black" v-on:click="calculate2" color="success">แสดงทั้งหมด</v-btn>
+<v-btn style="margin-top:17px;color:black" v-on:click="calculate" color="success">แสดง</v-btn>
+<v-btn style="margin-top:17px;color:black" v-on:click="calculate2" color="success">แสดงทั้งหมด</v-btn>
 </div>
 
       </div>
@@ -297,7 +297,7 @@ button{
   height: 50%;
   font-size: 15px;
 }.col-sm-2{
-  font-size: 90px;
+  font-size: 15px;
 }
 
 </style>

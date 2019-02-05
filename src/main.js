@@ -3,8 +3,8 @@
 
 require('jquery/dist/jquery.min')
 require('../node_modules/bulma/css/bulma.min.css')
-require('../node_modules/materialize-css/dist/css/materialize.min.css')
-require('materialize-css/dist/js/materialize.min')
+//require('../node_modules/materialize-css/dist/css/materialize.min.css')
+//require('materialize-css/dist/js/materialize.min')
 import Vue from 'vue'
 import './plugins/vuetify'
 import App from './App'
