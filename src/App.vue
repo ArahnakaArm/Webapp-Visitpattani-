@@ -7,10 +7,10 @@
       
       
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn href="/#/board" small ma0 flat>
+        <v-btn @click="goBoard" small ma0 flat>
           <span>Rating</span>
         </v-btn>
-        <v-btn href="/#/map" small ma0 flat>
+        <v-btn  @click="goMap" small ma0 flat>
           <span>Tracker</span>
         </v-btn>
         
@@ -61,6 +61,16 @@ export default {
       firebase.auth().signOut().then(() => {
         this.$router.replace('login')
       })
+    },
+     goBoard: function () {
+      
+        this.$router.replace('board')
+    
+    },
+     goMap: function () {
+     
+        this.$router.replace('map')
+     
     }
   }
 }

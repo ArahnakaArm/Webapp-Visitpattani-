@@ -6,28 +6,25 @@
          <h3 class="headline mb-0" style="text-align:center;padding-top:30px">LOGIN</h3>
 
       <form style="padding:40px">
-        <v-text-field
+        <v-text-field v-on:keyup.enter="submit"
         v-model="email"
-        :error-messages="nameErrors"
+       
         
-        label="Email"
-        required
-        @input="$v.name.$touch()"
-        @blur="$v.name.$touch()"
+       placeholder="Username"
+       
         ></v-text-field>
-        <v-text-field
+        <v-text-field  v-on:keyup.enter="submit"
         :type="'password'"
         v-model="password"
-        :error-messages="emailErrors"
-        label="Password"
-        required
-        @input="$v.email.$touch()"
-        @blur="$v.email.$touch()"
+        
+        placeholder="Password"
+       
+       
         ></v-text-field>
    
-        <div class="center" style="padding-left:43%; padding-right:50%">
+        <div class="center" style="padding-left:42%; padding-right:50%">
 
-        <v-btn @click="login">Login</v-btn>
+        <v-btn @click="submit">Login</v-btn>
         </div>
    
   </form>
@@ -54,7 +51,7 @@
             }
         },
         methods: {
-            login: function () {
+            submit: function () {
 
                 firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
                     (user) => {
@@ -62,7 +59,7 @@
                         this.$router.replace('board')
                     },
                     function (err) {
-                        alert('Oops. ' + err.message)
+                        alert( err.message)
                     }
                 )
             }

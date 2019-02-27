@@ -2,7 +2,9 @@
 <template>
 
   <div id="board" class="container">
-   
+   <div>
+     <h1 @click="testt">{{this.testtext}}</h1>
+     </div>
     <div class = "page-header">
       
       <div>
@@ -11,7 +13,7 @@
       <div style="margin-top:50px" class="row">
         
 <div  class="col-sm-2">
-  <h2 style="margin:0px">เลือกปี</h2>
+  <h5 style="margin:0px">เลือกปี</h5>
   <h1 style="margin:0px"><b-form-select  v-model="selected2" :options="options2" class="mb-3"  /></h1>
   </div>
 <div class="col-sm-2"> 
@@ -24,6 +26,7 @@
   </div>
 <v-btn style="margin-top:17px;color:black" v-on:click="calculate" color="success">แสดง</v-btn>
 <v-btn style="margin-top:17px;color:black" v-on:click="calculate2" color="success">แสดงทั้งหมด</v-btn>
+
 </div>
 
       </div>
@@ -55,20 +58,35 @@
               </tr>
             </tbody>
           </table>
+          <download-excel 
+    class   = "btn btn-default" 
+    :data   = "json_data"
+    :fields = "json_fields"
+    worksheet = "My Worksheet"
+    name    = "VisitPattani.xls">
+ 
+    Download Excel
+ 
+</download-excel>
         </div>
     </div>
 
   </div>
+
 </template>
 
 <script>
 //import HelloWorld from './components/HelloWorld'
 import Firebase,{ functions, database } from 'firebase'
+import firebase from 'firebase'
 import BootstrapVue from 'bootstrap-vue'
 import Vue from 'vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import {db} from '../firebase'
+import JsonExcel from 'vue-json-excel'
+ 
+Vue.component('downloadExcel', JsonExcel)
 //s
 let rateRef = db.ref('Places');
 let bookReff=db.ref('books');
@@ -82,14 +100,27 @@ var placeName;
 var DateStamp='Test';
 var day='5';
 let booksRef = db.ref('books').child('null');
+let testRef = db.ref('Tst');
+
+var i=0;
+var returnName=[];
+var returnRate=[];
+
+ testRef.on('value', snapshot => {
+   this.testtext=snapshot.val().Temp;
+         testt();
+        });
+
 
 export default {
   name: 'app',
- firebase:{
+  firebase:{
         books:booksRef
       },
-   data () {
+  data () {
     return {
+      contracts:{},testtext:'ddd'
+      ,
       selected: null,
       options: [
         { value: null, text: 'Day' },
@@ -141,7 +172,7 @@ export default {
         { value: '11', text: '11' },
         { value: '12', text: '12' }
       ],
-    selected2: null,
+      selected2: null,
       options2: [
         { value: null, text: 'Year' },
         
@@ -156,7 +187,325 @@ export default {
         { value: '2027', text: '2027' },
         { value: '2029', text: '2029' },
         { value: '2030', text: '2030' }
-      ]
+      ],
+      json_fields: {
+          'Placename': 'name',
+          'Rate': 'rate',
+          
+      },
+      json_data: [
+          {
+              'name': '',
+              'rate': '',
+          
+          },
+          {
+              'name': '',
+              'rate': '',
+          
+          },
+            {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          }, {
+              'name': '',
+              'rate': '',
+          
+          },
+      ],
+      json_meta: [
+          [
+              {
+                  'key': 'charset',
+                  'value': 'utf-8'
+              }
+          ]
+      ],
     }
   },methods:{
     calculate(){
@@ -207,58 +556,109 @@ export default {
         
       })
      
-    }, calculate2(){
+    }, testt(){
         
-        rateRef.once("value",function(snapshot){
-        
-          snapshot.forEach(function(childs){
-            let   booksReff=db.ref('books');
-            childs.forEach(function(childss){
-                  childCount= childss.numChildren();
-                  sumRate=sumRate+childss.val().Rate;
-                  DateStamp=childss.val().Date;
-                 
-                  
-            })
-         
-            console.log(sumRate);
-            childNum= childs.numChildren();
-            childAverage=sumRate/childNum;
-            console.log(childNum);
-             placeName=childs.key;
-            console.log(placeName);
-           booksReff.child(placeName).set({
-             name:placeName,
-             rate:childAverage,
-             timestamp:DateStamp
-        
-           })
-           console.log(DateStamp);
-           //booksReff.push('sad');
-            console.log(childAverage);
-            // rateRef.push(childAverage);
-            sumRate=0;
-             childAverage=0;
-           
-          })
-       
-        })
+ testRef.on('value', snapshot => {
+   this.testtext=snapshot.val().Temp;
+         console.log(this.testtext);
+        });
 
-
-
-       day=this.selected+this.selected1+this.selected2
-       //booksRef.push({name:'testt',rate:'7'})
-      console.log(day)
-      this.$unbind('books')
-      this.$bindAsArray('books',db.ref('books'))
-      booksRef.orderByChild('day').equalTo(day).on('child_added',snapshot=>{
-        console.log(snapshot.val())
-        
-      })
-     
     },
+    calculate2(){
+        /*contactRef.once('value', (snapshot) => {
+      this.json_data[0].name = snapshot.val();
+     
+      
+        })*/
+      /*
+      this.json_data[0].name='Test'
+          console.log(this.json_data[0].name);*/
+        var Test  = (i, Name, Rate) => {
+            this.json_data[i].name=Name;
+            this.json_data[i].rate=Rate;
+            console.log(this.json_data[i])
+        }
+        var dbRefMap= firebase.database().ref('books');
+        dbRefMap.on('value', snapshot => {
+          i=0;
+          snapshot.forEach(function(child){
+            var Name=child.val().name;
+            var Rate=child.val().rate;
+            Test(i, Name, Rate)
+            i++;
+            // returnName.push(Name)
+            // returnRate.push(Rate)
+        
+            //   console.log(returnName)
+              //  console.log(returnRate)
+            })
+        });
+
+        rateRef.once("value",function(snapshot){
+            snapshot.forEach(function(childs){
+              let   booksReff=db.ref('books');
+              childs.forEach(function(childss){
+                    childCount= childss.numChildren();
+                    sumRate=sumRate+childss.val().Rate;
+                    DateStamp=childss.val().Date;
+              })
+          
+            //  console.log(sumRate);
+              childNum= childs.numChildren();
+              childAverage=sumRate/childNum;
+            // console.log(childNum);
+              placeName=childs.key;
+              // console.log(placeName);
+              booksReff.child(placeName).set({
+                name:placeName,
+                rate:childAverage,
+                timestamp:DateStamp
+            
+              })
+            ///  console.log(DateStamp);
+              //booksReff.push('sad');
+              //  console.log(childAverage);
+                // rateRef.push(childAverage);
+                sumRate=0;
+                childAverage=0;
+              
+              })
+          
+            })
+          
+        
+          day=this.selected+this.selected1+this.selected2
+          //booksRef.push({name:'testt',rate:'7'})
+          //console.log(day)
+        this.$unbind('books')
+          this.$bindAsArray('books',db.ref('books'))
+          booksRef.orderByChild('day').equalTo(day).on('child_added',snapshot=>{
+            console.log(snapshot.val())
+            this.Test();
+          })
+    },/*
+    mounted () {
+    contactRef.on('value', (snapshot) => {
+      this.json_data.name = snapshot.val().name;
+     
+      
+    })
+  },*/
     goMap(){
         this.$router.replace('map')
+    },
+     Test(){
+        for(i=0;i<returnName.length;i++){
+    this.json_data[i].name=returnName[i];
+    this.json_data[i].rate=returnRate[i];
+       
+        
+        
+        
+        /*this.places.push(this.currentPlace);
+        this.center = marker;
+        this.currentPlace = null;*/
+   } 
     },
     
   }
