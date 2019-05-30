@@ -2,36 +2,22 @@
 <template>
 
   <div id="board" class="container">
-   <div>
-     <h1 @click="testt">{{this.testtext}}</h1>
-     </div>
+   
     <div class = "page-header">
       
       <div>
         <h2 style="font-size:40px">ผลการเก็บข้อมูลจากการ Check In </h2>
         
-      <div style="margin-top:50px" class="row">
+      <div style="margin-top:5px" class="row">
         
-<div  class="col-sm-2">
-  <h5 style="margin:0px">เลือกปี</h5>
-  <h1 style="margin:0px"><b-form-select  v-model="selected2" :options="options2" class="mb-3"  /></h1>
-  </div>
-<div class="col-sm-2"> 
-  <h5 style="margin:0px">เลือกเดือน</h5>
-  <h1 style="margin:0px"><b-form-select  v-model="selected1" :options="options1" class="mb-3" /></h1>
-  </div>
-<div class="col-sm-2"> 
-  <h5 style="margin:0px">เลือกวัน</h5>
-  <h1 style="margin:0px"><b-form-select v-model="selected" :options="options" class="mb-3" /></h1>
-  </div>
-<v-btn style="margin-top:17px;color:black" v-on:click="calculate" color="success">แสดง</v-btn>
-<v-btn style="margin-top:17px;color:black" v-on:click="calculate2" color="success">แสดงทั้งหมด</v-btn>
+
+<v-btn style="margin-top:17px;color:black;margin-left:15px" v-on:click="calculate2" color="success">แสดงทั้งหมด</v-btn>
 
 </div>
 
       </div>
     </div>
-    <div class="panel panel-default">
+    <div class="panel panel-default" style="margin-top:30px">
         <div class="panel-heading">
           <h3>Place Ratings</h3>
         </div>
@@ -65,14 +51,13 @@
     worksheet = "My Worksheet"
     name    = "VisitPattani.xls">
  
-    Download Excel
+    <u>Download Excel</u>
  
 </download-excel>
         </div>
     </div>
 
   </div>
-
 </template>
 
 <script>
@@ -100,17 +85,10 @@ var placeName;
 var DateStamp='Test';
 var day='5';
 let booksRef = db.ref('books').child('null');
-let testRef = db.ref('Tst');
 
 var i=0;
 var returnName=[];
 var returnRate=[];
-
- testRef.on('value', snapshot => {
-   this.testtext=snapshot.val().Temp;
-         testt();
-        });
-
 
 export default {
   name: 'app',
@@ -119,8 +97,7 @@ export default {
       },
   data () {
     return {
-      contracts:{},testtext:'ddd'
-      ,
+      contracts:{},
       selected: null,
       options: [
         { value: null, text: 'Day' },
@@ -530,8 +507,8 @@ export default {
             console.log(placeName);
            booksReff.child(placeName).set({
              name:placeName,
-             rate:childAverage,
-             timestamp:DateStamp
+             rate:childAverage
+    
         
            })
            console.log(DateStamp);
@@ -556,14 +533,7 @@ export default {
         
       })
      
-    }, testt(){
-        
- testRef.on('value', snapshot => {
-   this.testtext=snapshot.val().Temp;
-         console.log(this.testtext);
-        });
-
-    },
+    }, 
     calculate2(){
         /*contactRef.once('value', (snapshot) => {
       this.json_data[0].name = snapshot.val();
@@ -606,13 +576,14 @@ export default {
             //  console.log(sumRate);
               childNum= childs.numChildren();
               childAverage=sumRate/childNum;
+              //var roundedNumber = Math.round(childAverage * 10) / 10;
+              childAverage = childAverage.toFixed(1);
             // console.log(childNum);
               placeName=childs.key;
               // console.log(placeName);
               booksReff.child(placeName).set({
                 name:placeName,
-                rate:childAverage,
-                timestamp:DateStamp
+                rate:childAverage
             
               })
             ///  console.log(DateStamp);

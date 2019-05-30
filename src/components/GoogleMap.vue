@@ -4,14 +4,8 @@
         <div style="margin-top:50px;margin-left:500px" class="row">
         
 
-<div class="col-sm1"> 
-  <h6 style="margin-top:10px">กรุณาเลือก Options</h6>
 
-  </div>
-<div class="col-sm1"> 
-  <h1 style="margin:0px;margin-left:20px"><b-form-select  v-model="selected" :options="options" class="mb-2" /></h1>
-  </div>
-  <v-btn style="margin-top:0px;color:black;margin-left:20px" v-on:click="addMarker" color="success">ค้นหา</v-btn>
+  <v-btn style="margin-top:0px;color:black;margin-left:600px" v-on:click="addMarker" color="success">แสดงหมุด</v-btn>
 
 </div>
 
@@ -99,7 +93,7 @@ export default {
     var dbRef= firebase.database().ref('Location');
     var dbRefUsers = firebase.database().ref('Location(users)');
     
-    if(this.selected==2){
+   
       marker=[];
     dbRef.on('value', function(snapshot) {
     snapshot.forEach(function(child) {  
@@ -149,7 +143,9 @@ export default {
         this.center = marker2;
         this.currentPlace = null;*/
     //  }
-    } if(this.selected==1){
+    
+    /*
+    if(this.selected==1){
       marker=[];
     dbRefUsers.on('value', function(snapshot) {
     snapshot.forEach(function(child) {  
@@ -179,12 +175,10 @@ export default {
           lng: returnArray2[i]
         };
         this.markers.push({ position: marker2[i] });
-        /*this.places.push(this.currentPlace);
-        this.center = marker;
-        this.currentPlace = null;*/
+      
    }
   
-    }
+    }*/
     }
     
 ,
