@@ -2,28 +2,36 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 
 require('jquery/dist/jquery.min')
-require('../node_modules/bulma/css/bulma.min.css')
+//require('../node_modules/bulma/css/bulma.min.css')
 //require('../node_modules/materialize-css/dist/css/materialize.min.css')
 //require('materialize-css/dist/js/materialize.min')
 import Vue from 'vue'
+import '@fortawesome/fontawesome-free/css/all.css'
 import './plugins/vuetify'
 import App from './App'
 import router from './router'
 import VueFire from 'vuefire';
 import './plugins/vuetify'
 import './firebase';
+import Vuetify from 'vuetify'
 import * as VueGoogleMaps from "vue2-google-maps";
-import BootstrapVue from 'bootstrap-vue'
+import DatetimePicker from 'vuetify-datetime-picker'
+import 'vuetify-datetime-picker/src/stylus/main.styl'
+//import BootstrapVue from 'bootstrap-vue'
 
-Vue.use(BootstrapVue);
+//Vue.use(BootstrapVue);
+Vue.use(DatetimePicker)
 Vue.use(VueGoogleMaps, {
   load: {
-    key: "AIzaSyAhqJQMtqhfI953BnP9-Pls8XTkHSsymSU",
+    key: "AIzaSyDrmVriOLevsxfYMfpoyl221ZpUp4YZiNQ",
     libraries: "places" // necessary for places input
   }
 });
 Vue.use(VueFire);
 Vue.config.productionTip = false
+Vue.use(Vuetify, {
+  iconfont: 'fa'
+ })
 
 import firebase from 'firebase'
 let app;

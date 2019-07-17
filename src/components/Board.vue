@@ -11,7 +11,7 @@
       <div style="margin-top:5px" class="row">
         
 
-<v-btn style="margin-top:17px;color:black;margin-left:15px" v-on:click="calculate2" color="success">แสดงทั้งหมด</v-btn>
+
 
 </div>
 
@@ -36,7 +36,7 @@
             <tbody>
               <tr v-for="book in books" :key="book.id">
                 <td>
-                 <a v-bind:href="book.url">{{book.name}}</a>
+                 {{book.name}}
                 </td>
                 <td style="padding-left:27px">
                 {{book.rate}}
@@ -49,9 +49,9 @@
     :data   = "json_data"
     :fields = "json_fields"
     worksheet = "My Worksheet"
-    name    = "VisitPattani.xls">
+    name    = "VisitSongkhla.xls">
  
-    <u>Download Excel</u>
+      <v-btn style="margin-top:0px;color:black;width:168px"  class="black--text" color="#26a69a ">ดาวน์โหลด Excel</v-btn>
  
 </download-excel>
         </div>
@@ -95,6 +95,10 @@ export default {
   firebase:{
         books:booksRef
       },
+ mounted() {
+    this.calculate2();
+    //this.addMarker();
+  },
   data () {
     return {
       contracts:{},

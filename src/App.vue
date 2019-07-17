@@ -1,20 +1,30 @@
 <template>
   <v-app>
-    <v-toolbar app dark >
+    <v-toolbar color="#26a69a" >
       
       
       <v-spacer></v-spacer>
       
       
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn @click="goBoard" small ma0 flat>
-          <span>Rating</span>
+        <v-btn @click="goBoard" small ma0 flat color="white">
+          <span >สถิติ</span>
         </v-btn>
-        <v-btn  @click="goMap" small ma0 flat>
-          <span>Tracker</span>
+        <v-btn  @click="goMap" small ma0 flat color="white">
+          <span>ติดตาม</span>
+        </v-btn>
+        <v-btn  @click="goAdd" small ma0 flat color="white">
+          <span>เพิ่มสถานที่</span>
+        </v-btn>
+        <v-btn  @click="goListNews" small ma0 flat color="white">
+          <span>ข่าวกิจกรรม</span>
+        </v-btn>
+        <v-btn  @click="goList" small ma0 flat color="white">
+          <span>ของฝาก</span>
         </v-btn>
         
-        <v-icon style="margin-left:20px" href="wave-light" v-on:click="logout">exit_to_app</v-icon>
+        
+        <v-icon style="margin-left:20px" color="white" href="wave-light" v-on:click="logout">exit_to_app</v-icon>
       </v-toolbar-items>
       <v-menu>
         <v-toolbar-side-icon class="hidden-md-and-up" slot="activator"></v-toolbar-side-icon>
@@ -64,14 +74,34 @@ export default {
     },
      goBoard: function () {
       
-        this.$router.replace('board')
+        this.$router.push('board')
     
     },
      goMap: function () {
      
-        this.$router.replace('map')
+        this.$router.push('map')
      
+    },
+      goAdd: function () {
+     
+        this.$router.push('addplaces')
+     
+    },
+    goList: function () {
+     
+        this.$router.push('products')
+     
+    },
+    goListNews: function () {
+     
+        this.$router.push('news')
+     
+    }, yourCallBackFunction () {
+     console.log('asdasd')
     }
+  },
+  created(){
+       document.addEventListener("backbutton", this.yourCallBackFunction, false);
   }
 }
 </script>

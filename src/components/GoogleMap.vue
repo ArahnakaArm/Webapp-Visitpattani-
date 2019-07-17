@@ -1,19 +1,30 @@
 <template>
   <div>
  
-        <div style="margin-top:50px;margin-left:500px" class="row">
-        
+        <div style="margin-top:25px;margin-left:450px" class="row">
+    <v-menu>
+      <v-text-field :value="due" slot="activator" label="Due date"  prepend-icon="date_range"></v-text-field>
+      <v-date-picker v-model="due"></v-date-picker>
+      
+    </v-menu>
+    <v-menu style="margin-left:30px">
+      <v-text-field :value="due2" slot="activator" label="Due date"  prepend-icon="date_range"></v-text-field>
+      <v-date-picker v-model="due2"></v-date-picker>
+      
+    </v-menu>
+ 
 
-
-  <v-btn style="margin-top:0px;color:black;margin-left:600px" v-on:click="addMarker" color="success">แสดงหมุด</v-btn>
-
+  <v-btn style="margin-top:15px;color:white;margin-left:75px" v-on:click="addMarker" class="white--text" color="#26a69a ">แสดงหมุด</v-btn>
+  
 </div>
 
-      <div style="margin-left:15%;margin-top:30px">
+      
+        
+      <div style="margin-left:15%;margin-top:15px">
     <gmap-map
       :center="center"
       :zoom="12"
-      style="width:80%;  height: 500px; margin-left:10%:margin-top:0px"
+      style="width:80%;  height: 550px; margin-left:10%:margin-top:0px"
     >
       <gmap-marker
         :key="index"
@@ -27,6 +38,7 @@
 </template>
 
 <script>
+
 import firebase from 'firebase'
 import {db} from '../firebase'
 let booksRef = db.ref('Location');
@@ -41,12 +53,17 @@ var childAverage=0;
 var placeName;
 var DateStamp='Test';
 export default {
+  
   name: "GoogleMap",
   firebase: {
     posts: booksRef
   },
   data() {
     return {
+      due:null,due2:null,
+      slicedDue:'',slicedDue2:'',
+       mask: '##/##/####',
+      value: '4444444444444444',
       selected:1,
       options:[
         { value: 1, text: 'จากผู้ใช้ให้คะแนน' },
@@ -68,6 +85,7 @@ export default {
 
   mounted() {
     this.geolocate();
+    //this.addMarker();
   },
 
   methods: {
@@ -76,109 +94,61 @@ export default {
       this.currentPlace = place;
     },
     addMarker() {   
+      this.markers = []
       var i=0;
+      var j=0;
       var returnArray=[];
       var returnArray2=[];
-  
-       
+    var num=0
       var marker=[];
       var marker2=[];
-  
-     /*  const marker = {
-          lat:parseFloat(posts.latt),
-          lng: parseFloat(posts.long)
-        };
-        console.log(posts.latt)
-        this.markers.push({ position: marker });*/
     var dbRef= firebase.database().ref('Location');
     var dbRefUsers = firebase.database().ref('Location(users)');
-    
-   
       marker=[];
-    dbRef.on('value', function(snapshot) {
+      this.slicedDue = this.due.replace('-','')
+      this.slicedDue = this.slicedDue.replace('-','')
+    console.log(this.slicedDue)
+     this.slicedDue2 = this.due2.replace('-','')
+      this.slicedDue2 = this.slicedDue2.replace('-','')
+    console.log(this.slicedDue2)
+
+      for(j=this.slicedDue;j<=this.slicedDue2;j++){
+        console.log(j)
+    dbRef.orderByChild("date").equalTo(j).on('value', function(snapshot) {
     snapshot.forEach(function(child) {  
     var childs=child.val();
-     
+   //if(child.val().date == j){
    var childs1=childs.latt
    var childs2=childs.long
    returnArray.push(childs1)
    returnArray2.push(childs2)
-          console.log(returnArray)
-          console.log(returnArray2)
+  // }
          
        });
+
        
-      return returnArray;
-      return returnArray2
-   });
-    
-     // if (this.currentPlace) {
-    //  console.log(lat1)
-     // console.log(lat2)
-   // booksRef.on('value', function(snapshot) {
-   // snapshot.forEach(function(child) {  
-   // var childs=child.val();
-   for(i=0;i<returnArray.length;i++){
+        num += snapshot.numChildren()
      
+      });
+   }
+   
+    
+      
+   for(i=0;i<returnArray.length;i++){
+      var marker=[];
      
        marker[i] = {
           lat:returnArray[i],
           lng: returnArray2[i]
         };
         this.markers.push({ position: marker[i] });
-        /*this.places.push(this.currentPlace);
-        this.center = marker;
-        this.currentPlace = null;*/
-   }
-   
-     //  });
-   //});
-      /*
-        const marker2 = {
-          lat:7.0428779,
-          lng: 100.4962275
-        };
-           this.markers.push({ position: marker2 });
-        this.places.push(this.currentPlace);
-        this.center = marker2;
-        this.currentPlace = null;*/
-    //  }
-    
-    /*
-    if(this.selected==1){
-      marker=[];
-    dbRefUsers.on('value', function(snapshot) {
-    snapshot.forEach(function(child) {  
-    var childs=child.val();
-   var childs1=childs.latt
-   var childs2=childs.long
-   returnArray.push(childs1)
-   returnArray2.push(childs2)
-          console.log(returnArray)
-          console.log(returnArray2)
-       });
-      return returnArray;
-      return returnArray2
-   });
-    
-     // if (this.currentPlace) {
-    //  console.log(lat1)
-     // console.log(lat2)
-   // booksRef.on('value', function(snapshot) {
-   // snapshot.forEach(function(child) {  
-   // var childs=child.val();
-   for(i=0;i<returnArray.length;i++){
      
-     
-       marker2[i] = {
-          lat:returnArray[i],
-          lng: returnArray2[i]
-        };
-        this.markers.push({ position: marker2[i] });
-      
    }
-  
-    }*/
+   console.log(this.markers.length)
+     //this.markers = []
+     
+    },deleteMarker(){
+         this.markers = []
     }
     
 ,
@@ -253,3 +223,9 @@ export default {
   }
 };
 </script>
+<style>
+ .v-menu{
+    margin-top: 0.55rem;
+    margin-left: 0.2rem;
+  }
+</style>
