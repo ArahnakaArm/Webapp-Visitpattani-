@@ -3,18 +3,18 @@
  
         <div style="margin-top:25px;margin-left:450px" class="row">
     <v-menu>
-      <v-text-field :value="due" slot="activator" label="Due date"  prepend-icon="date_range"></v-text-field>
+      <v-text-field :value="due" slot="activator" label="ช่วงเวลาเริ่มต้น"  prepend-icon="date_range"></v-text-field>
       <v-date-picker v-model="due"></v-date-picker>
       
     </v-menu>
     <v-menu style="margin-left:30px">
-      <v-text-field :value="due2" slot="activator" label="Due date"  prepend-icon="date_range"></v-text-field>
+      <v-text-field :value="due2" slot="activator" label="ช่วงเวลาสิ้นสุด"  prepend-icon="date_range"></v-text-field>
       <v-date-picker v-model="due2"></v-date-picker>
       
     </v-menu>
  
 
-  <v-btn style="margin-top:15px;color:white;margin-left:75px" v-on:click="addMarker" class="white--text" color="#26a69a ">แสดงหมุด</v-btn>
+  <v-btn style="margin-top:20px;color:white;margin-left:75px" v-on:click="addMarker" class="white--text" color="#26a69a ">แสดงหมุด</v-btn>
   
 </div>
 
@@ -69,15 +69,10 @@ export default {
         { value: 1, text: 'จากผู้ใช้ให้คะแนน' },
         { value: 2, text: 'จากการติดตามผู้ใช้' }
       ],
-      // default to Montreal to keep it simple
-      // change this to whatever makes sense
+     
       center: { lat: 6.7512336, lng: 101.091477 },
       markers: [
-      /*  {
-        position:{
-        lat: 7.0071889, lng: 100.4962275
-      }
-        }*/ ],
+      ],
       places: [],
       currentPlace: null
     };
@@ -85,15 +80,16 @@ export default {
 
   mounted() {
     this.geolocate();
-    //this.addMarker();
+  
   },
 
   methods: {
-    // receives a place object via the autocomplete component
+    
     setPlace(place) {
       this.currentPlace = place;
     },
     addMarker() {   
+     
       this.markers = []
       var i=0;
       var j=0;
@@ -114,16 +110,17 @@ export default {
 
       for(j=this.slicedDue;j<=this.slicedDue2;j++){
         console.log(j)
-    dbRef.orderByChild("date").equalTo(j).on('value', function(snapshot) {
+    dbRef.on('value', function(snapshot) {
     snapshot.forEach(function(child) {  
+      
     var childs=child.val();
-   //if(child.val().date == j){
+    if(child.val().date==j){
    var childs1=childs.latt
    var childs2=childs.long
    returnArray.push(childs1)
    returnArray2.push(childs2)
-  // }
-         
+ 
+    }
        });
 
        
@@ -152,25 +149,7 @@ export default {
     }
     
 ,
-    addMarker2() {
-      var CountTest =firebase.database().ref('Places');
-       
-    CountTest.on('value', function(snapshot) {
-    var count=0;
-    snapshot.forEach(function(child) {
 
-   var childs=child;
-   var childs2=child.val();
-     count=child.numChildren();
-   console.log(count)
-   
-     
-  
-       });
-      //  console.log(count);
-   });
-  
-    },
 
 
     calculate(){
